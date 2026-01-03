@@ -115,6 +115,13 @@ class HacsBobilApiClient:
         if match:
             data["combined_heating_status"] = match.group(1) == "ON"
 
+        # Extract van heating status message (e.g., "HEATER COOLING")
+        match = re.search(r"<h3>(.*?)</h3>", html)
+        if match:
+            data["van_heating_status"] = match.group(1).strip()
+        else:
+            data["van_heating_status"] = None
+
         # Add timestamp of successful fetch
         data["last_update"] = datetime.now(UTC)
 

@@ -59,6 +59,16 @@ ENTITY_DESCRIPTIONS = (
         icon="mdi:identifier",
     ),
     SensorEntityDescription(
+        key="van_heating_status",
+        name="Van Heating Status",
+        icon="mdi:radiator",
+    ),
+    SensorEntityDescription(
+        key="heating_mode",
+        name="Heating Mode",
+        icon="mdi:fire",
+    ),
+    SensorEntityDescription(
         key="last_update",
         name="Last Update",
         device_class=SensorDeviceClass.TIMESTAMP,
@@ -98,4 +108,21 @@ class HacsBobilSensor(HacsBobilEntity, SensorEntity):
     @property
     def native_value(self) -> str | float | datetime | None:
         """Return the native value of the sensor."""
+        # Special handling for heating_mode sensor
+        if self.entity_description.key == "heating_mode":
+            return self._get_heating_mode()
         return self.coordinator.data.get(self.entity_description.key)
+
+    def _get_heating_mode(self) -> str:
+        """Determine the heating mode based on individual heating statuses."""
+        combined = self.coordinator.data.get("combined_heating_status", False)
+        air = self.coordinator.data.get("air_heating_status", False)
+        water = self.coordinator.data.get("water_heating_status", False)
+
+        if combined or (air and water):
+            return "BOTH"
+        if air:
+            return "AIR"
+        if water:
+            return "WATER"
+        return "OFF"

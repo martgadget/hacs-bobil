@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
@@ -77,6 +78,7 @@ class HacsBobilSwitch(HacsBobilEntity, SwitchEntity):
             await client.async_turn_on_water_heating()
         elif self.entity_description.key == "combined_heating":
             await client.async_turn_on_combined_heating()
+        await asyncio.sleep(2)
         await self.coordinator.async_request_refresh()
 
     async def async_turn_off(self, **_: Any) -> None:
@@ -88,4 +90,5 @@ class HacsBobilSwitch(HacsBobilEntity, SwitchEntity):
             await client.async_turn_off_water_heating()
         elif self.entity_description.key == "combined_heating":
             await client.async_turn_off_combined_heating()
+        await asyncio.sleep(2)
         await self.coordinator.async_request_refresh()

@@ -13,7 +13,7 @@ class HacsBobilEntity(CoordinatorEntity[BlueprintDataUpdateCoordinator]):
     """BlueprintEntity class."""
 
     _attr_attribution = ATTRIBUTION
-    _attr_has_entity_name = True
+    _attr_has_entity_name = False
 
     def __init__(self, coordinator: BlueprintDataUpdateCoordinator) -> None:
         """Initialize."""

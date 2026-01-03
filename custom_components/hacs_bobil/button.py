@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
@@ -64,4 +65,5 @@ class HacsBobilButton(HacsBobilEntity, ButtonEntity):
             await client.async_temp_up()
         elif self.entity_description.key == "temp_down":
             await client.async_temp_down()
+        await asyncio.sleep(2)
         await self.coordinator.async_request_refresh()

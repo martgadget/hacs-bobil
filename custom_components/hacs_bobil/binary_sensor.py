@@ -25,18 +25,21 @@ ENTITY_DESCRIPTIONS = (
         name="Air Heating",
         device_class=BinarySensorDeviceClass.HEAT,
         icon="mdi:radiator",
+        entity_registry_enabled_default=False,
     ),
     BinarySensorEntityDescription(
         key="water_heating_status",
         name="Water Heating",
         device_class=BinarySensorDeviceClass.HEAT,
         icon="mdi:water-boiler",
+        entity_registry_enabled_default=False,
     ),
     BinarySensorEntityDescription(
         key="combined_heating_status",
         name="Combined Heating",
         device_class=BinarySensorDeviceClass.HEAT,
         icon="mdi:fire",
+        entity_registry_enabled_default=False,
     ),
 )
 

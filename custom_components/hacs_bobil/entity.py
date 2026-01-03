@@ -9,7 +9,7 @@ from .const import ATTRIBUTION
 from .coordinator import BlueprintDataUpdateCoordinator
 
 
-class IntegrationBlueprintEntity(CoordinatorEntity[BlueprintDataUpdateCoordinator]):
+class HacsBobilEntity(CoordinatorEntity[BlueprintDataUpdateCoordinator]):
     """BlueprintEntity class."""
 
     _attr_attribution = ATTRIBUTION
@@ -25,4 +25,7 @@ class IntegrationBlueprintEntity(CoordinatorEntity[BlueprintDataUpdateCoordinato
                     coordinator.config_entry.entry_id,
                 ),
             },
+            name="Bobil Van Heating",
+            manufacturer="Bobil Vans",
+            model="Heating Control System",
         )

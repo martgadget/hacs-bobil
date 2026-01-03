@@ -1,4 +1,4 @@
-"""Binary sensor platform for integration_blueprint."""
+"""Binary sensor platform for hacs_bobil."""
 
 from __future__ import annotations
 
@@ -10,32 +10,45 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntityDescription,
 )
 
-from .entity import IntegrationBlueprintEntity
+from .entity import HacsBobilEntity
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
     from .coordinator import BlueprintDataUpdateCoordinator
-    from .data import IntegrationBlueprintConfigEntry
+    from .data import HacsBobilConfigEntry
 
 ENTITY_DESCRIPTIONS = (
     BinarySensorEntityDescription(
-        key="integration_blueprint",
-        name="Integration Blueprint Binary Sensor",
-        device_class=BinarySensorDeviceClass.CONNECTIVITY,
+        key="air_heating_status",
+        name="Air Heating",
+        device_class=BinarySensorDeviceClass.HEAT,
+        icon="mdi:radiator",
+    ),
+    BinarySensorEntityDescription(
+        key="water_heating_status",
+        name="Water Heating",
+        device_class=BinarySensorDeviceClass.HEAT,
+        icon="mdi:water-boiler",
+    ),
+    BinarySensorEntityDescription(
+        key="combined_heating_status",
+        name="Combined Heating",
+        device_class=BinarySensorDeviceClass.HEAT,
+        icon="mdi:fire",
     ),
 )
 
 
 async def async_setup_entry(
     hass: HomeAssistant,  # noqa: ARG001 Unused function argument: `hass`
-    entry: IntegrationBlueprintConfigEntry,
+    entry: HacsBobilConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the binary_sensor platform."""
     async_add_entities(
-        IntegrationBlueprintBinarySensor(
+        HacsBobilBinarySensor(
             coordinator=entry.runtime_data.coordinator,
             entity_description=entity_description,
         )
@@ -43,8 +56,8 @@ async def async_setup_entry(
     )
 
 
-class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorEntity):
-    """integration_blueprint binary_sensor class."""
+class HacsBobilBinarySensor(HacsBobilEntity, BinarySensorEntity):
+    """hacs_bobil binary_sensor class."""
 
     def __init__(
         self,
@@ -58,4 +71,4 @@ class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorE
     @property
     def is_on(self) -> bool:
         """Return true if the binary_sensor is on."""
-        return self.coordinator.data.get("title", "") == "foo"
+        return self.coordinator.data.get(self.entity_description.key, False)

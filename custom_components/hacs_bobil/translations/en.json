@@ -1,0 +1,19 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Enter the IP address or hostname of your van heating system. If you need help with the configuration have a look here: https://github.com/martynah/hacs-bobil",
+                "data": {
+                    "host": "IP Address or Hostname"
+                }
+            }
+        },
+        "error": {
+            "connection": "Unable to connect to the heating system. Please check the IP address or hostname.",
+            "unknown": "An unexpected error occurred."
+        },
+        "abort": {
+            "already_configured": "This heating system is already configured."
+        }
+    }
+}

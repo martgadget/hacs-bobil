@@ -1,0 +1,12 @@
+{
+  "domain": "hacs_bobil",
+  "name": "HACS Bobil",
+  "codeowners": [
+    "@ludeeus"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/martynah/hacs-bobil",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/martynah/hacs-bobil/issues",
+  "version": "0.1.0"
+}

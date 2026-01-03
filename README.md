@@ -1,16 +1,25 @@
 # Bobil Van Heating Control Integration
 
-A Home Assistant custom integration for controlling Bobil van heating systems through their web interface.
+A Home Assistant custom integration for controlling Bobil Vans Smart Heating Controller through its WIFI web interface.
 
 ## Overview
 
-This integration connects to your Bobil van heating system via its web interface, allowing you to monitor temperatures, water levels, and control heating functions directly from Home Assistant.
+This integration connects to your <a href='https://www.bobilvans.co.uk/product-page/bobil-smart-pro-controller'>Bobil Vans Smart Heating Controller</a> via its web interface, allowing you to monitor temperatures, water levels, and control heating functions directly from Home Assistant.
+
+<img width="480" height="330" alt="image" src="https://github.com/user-attachments/assets/043bc02a-d997-44bd-a265-fdc93434036d" />
+
+To use this integration, you'll need to:
+
+- Get a USB WIFI Adapter to add to your home assistant hardware, or have a spare WIFI interface on the device (e.g Raspberry Pi's with WIFI interfaces as well as wired ones)
+- Ensure that your Home Assistant installation main network is NOT using 192.168.4.0/24 as its network. If your camper wifi network uses this range, change it to 192.168.3.0/24 or something else (Bobil's smart controller is hard-wired to use 192.168.4.0 as its network, which cant be changed)
 
 ## Features
 
-- **Real-time Monitoring**: Updates every 10 seconds
-- **Resilient**: Preserves last known state when the heating system is temporarily unreachable
-- **Comprehensive Entities**: Sensors, binary sensors, switches, and buttons for complete control
+- Full control of all Bobil Functions, Air, Combined, Hot Water modes
+- Control of Target Temperature
+- Syncs to the Web Interface of the Bobil Controller, Updates every 10 seconds
+- Preserves last known state when the heating system is temporarily unreachable
+- Shows all data which is available on the Controller Web Page at http://192.168.4.1
 
 ## Entities Created
 
@@ -38,6 +47,19 @@ This integration connects to your Bobil van heating system via its web interface
 
 ## Installation
 
+### Add the Bobil WIFI Network
+
+1. Press 'Menu' on the Bobil controller until it shows you its WIFI SSID and Password
+2. Connect your compatible USB Wifi interface to the hardware running Home Assistant.
+3. Navigate to Settings/System/Network in Home Assistant
+4. Locate the WIFI network adapter (usually wlan0)
+5. Browse for the Bobil Network
+6. Enter the password
+7. Accept the default settings *dont set a default gateway*
+
+If you have 'Terminal' installed in HA, you can go there now, and check you can ping 192.168.4.1 to see if the Bobil Controller has connected.
+The controller itself will also show 'WIFI' on its home screen. The above address should 'ping'.
+
 ### HACS (Recommended)
 
 1. Open HACS in your Home Assistant instance
@@ -60,18 +82,10 @@ This integration connects to your Bobil van heating system via its web interface
 1. Go to **Settings** → **Devices & Services**
 2. Click **Add Integration**
 3. Search for "Bobil Van Heating" or "HACS Bobil"
-4. Enter the IP address or hostname of your van heating system
-   - Example: `192.168.1.100` or `heating.local`
-   - The integration assumes port 80 (standard HTTP)
+4. Enter 192.168.4.1 as the IP address of the Controller.
 5. Click **Submit**
 
 The integration will validate the connection and create all entities automatically.
-
-## Requirements
-
-- Your van heating system must be accessible on your network
-- The web interface must be reachable via HTTP (port 80)
-- No authentication is required (assumes private network)
 
 ## How It Works
 
@@ -107,20 +121,6 @@ This integration is developed using the Home Assistant custom component developm
 - DevContainer support
 - Python 3.13 compatibility
 
-### Running Locally
-
-```bash
-# Clone the repository
-git clone https://github.com/martynah/hacs-bobil
-cd hacs-bobil
-
-# Open in VS Code with DevContainers
-code .
-
-# Start Home Assistant
-scripts/develop
-```
-
 ## Support
 
 For issues, feature requests, or contributions, please visit:
@@ -130,3 +130,4 @@ For issues, feature requests, or contributions, please visit:
 ## License
 
 See the [LICENSE](LICENSE) file for details.
+

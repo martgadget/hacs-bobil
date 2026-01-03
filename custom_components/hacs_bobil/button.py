@@ -55,6 +55,7 @@ class HacsBobilButton(HacsBobilEntity, ButtonEntity):
         """Initialize the button class."""
         super().__init__(coordinator)
         self.entity_description = entity_description
+        self._attr_unique_id = f"{coordinator.config_entry.entry_id}_{entity_description.key}"
 
     async def async_press(self, **_: Any) -> None:
         """Handle the button press."""
